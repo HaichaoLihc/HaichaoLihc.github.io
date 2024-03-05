@@ -33,7 +33,7 @@
     </section>
     <section class="gallery">
         <div class = 'photos'>
-            <div class = 'people'><img src="images/gallery/bicycle.jpg" alt="Smiley face" class="horizontal" ></div>
+            <div class = 'people' onclick="openModal('images/gallery/bicycle.jpg')"><img src="images/gallery/bicycle.jpg" alt="Smiley face" class="horizontal" ></div>
             <div class = 'light'><img src="images/gallery/curtain.jpg" alt="Smiley face" class="vertical" ></div>
             <div class = 'people'><img src="images/gallery/elevator.jpg" alt="Smiley face" class="horizontal" ></div>
             <div class = 'light'><img src="images/gallery/shovel.jpg" alt="Smiley face" class="vertical" ></div>
@@ -41,5 +41,9 @@
         </div>
     </section>
     <script src="Genre selector.js"></script>
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 </body>
 </html>

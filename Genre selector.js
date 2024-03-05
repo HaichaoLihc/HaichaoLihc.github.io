@@ -89,3 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+// Function to open the modal and set the image source
+function openModal(imageSrc) {
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('imageModal').style.display = 'block';
+}
+
+// Function to close the modal
+function closeModal() {
+    document.getElementById('imageModal').style.display = 'none';
+}
