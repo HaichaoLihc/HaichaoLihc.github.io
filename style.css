@@ -61,6 +61,7 @@ a:hover{
 .genreSelector button{
     margin-left: 10px;
     margin-right: 10px;
+    font-size: medium;
     font-weight: bolder;
     padding: 5px;
     cursor: pointer;
