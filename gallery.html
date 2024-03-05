@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="navBar">
+        <h3>Haichao Li Photography</h3>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a> 
+            <a href="gallery.html">Gallery</a> 
+            <a href="projects.html">Projects</a>
+        </nav>
+    </section>
+    <section class="hero">
+        <h1>Gallery</h1>
+        <hr>
+    </section>
+    <section class="genreSelector">
+        <h4>Use the filters below to sort images. Click on an image to take a closer look!</h4>
+        <div>
+            <button id="all">All</button>
+            <button id="B1">Light</button>
+            <button id="B2">Water</button>
+            <button id="B3">Landscape</button>
+            <button id="B4">Street</button>
+            <button id="B5">People</button>
+        </div>
+    </section>
+    <section class="gallery">
+        <div class = 'photos'>
+            <div class = 'people'><img src="gallery/bicycle.jpg" alt="Smiley face" class="horizontal" ></div>
+            <div class = 'light'><img src="gallery/curtain.jpg" alt="Smiley face" class="vertical" ></div>
+            <div class = 'people'><img src="gallery/elevator.jpg" alt="Smiley face" class="horizontal" ></div>
+            <div class = 'light'><img src="gallery/shovel.jpg" alt="Smiley face" class="vertical" ></div>
+            <div class = 'landscape'><img src="gallery/woods.jpg" alt="Smiley face" class="vertical" ></div>
+        </div>
+    </section>
+    <script src="Genre selector.js"></script>
+</body>
+</html>
