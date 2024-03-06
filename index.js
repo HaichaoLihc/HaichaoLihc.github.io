@@ -8,10 +8,12 @@ const photos = [
 
 let currentPhotoIndex = 0;
 const photoElement = document.getElementById("photo");
+const photoElement2 = document.getElementById("photo2");
 
 function showPhoto(index) {
     if (index >= 0 && index < photos.length) {
         photoElement.src = photos[index];
+        photoElement2.src = photos[index];
         currentPhotoIndex = index;
     }
 }
