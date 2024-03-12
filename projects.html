@@ -7,33 +7,104 @@
     <link rel="stylesheet" href="projects.css">
 </head>
 <body>
-    <section class="navBar">
-        <h3>Haichao Li Photography</h3>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="books.html">Books</a> 
-            <a href="gallery.html">Gallery</a>
-            <a href="projects.html">Projects</a>
-        </nav>
-    </section>
-    <!-- projects.html -->
-    <section class="project-section">
-        <!-- Add your project content here -->
-        <div class="project">
-            <h2>Project 1</h2>
-            <p>Description of Project 1.</p>
-            <!-- Add more details or links as needed -->
+<section class="navBar">
+    <h3>Haichao Li Photography</h3>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="projects.html">Projects</a>
+    </nav>
+</section>
+
+
+<section class="project-section">
+    <div class="project">
+        <div class="description-container">
+            <h2 class="project-title" id='PT1' onclick="toggleGallery('mainImage1','gallery1','PT1')">Project 1</h2>
+            <p class="project-description" id="DescriptionTitle1"
+               onclick="toggleDescription('description1','DescriptionTitle1')">Description of Project 1.</p>
+            <p class="detail-description hidden" id="description1">Project 1 showcases a captivating series of photographs
+            capturing the essence of urban
+            life. Through a lens focused on everyday moments, this collection explores the beauty found in the mundane.
+            Each photograph tells a unique story, inviting viewers to pause and appreciate the details that often go
+            unnoticed in the hustle and bustle of city living.</p>
         </div>
-
-        <div class="project">
-            <h2>Project 2</h2>
-            <p>Description of Project 2.</p>
-            <!-- Add more details or links as needed -->
+        <div class='mainImage-container' id="mainImage1">
+            <img src="images/projects/elevator.jpg" alt="Project 1 - Photo 1">
         </div>
+        <div class="horizontal-scroll-container hidden" id="gallery1">
+            <img src="images/projects/women-in-cloak.jpg" alt="Project 1 - Photo 2">
+            <img src="images/projects/woods.jpg" alt="Project 1 - Photo 3">
+            <img src="images/projects/bicycle.jpg" alt="Project 2 - Photo 1">
+            <img src="images/projects/curtain.jpg" alt="Project 2 - Photo 2">
+            <img src="images/projects/shovel.jpg" alt="Project 2 - Photo 3">
+        </div>
+    </div>
+    <div class="project">
+        <div class="description-container">
+            <h2 class="project-title" id='PT2' onclick="toggleGallery('mainImage2','gallery2','PT2')">Project 2</h2>
+            <p class="project-description" id="DescriptionTitle2"
+               onclick="toggleDescription('description2','DescriptionTitle2')">Description of Project 2.</p>
+            <p class="detail-description hidden" id="description2">Project 1 showcases a captivating series of photographs
+            capturing the essence of urban
+            life. Through a lens focused on everyday moments, this collection explores the beauty found in the mundane.
+            Each photograph tells a unique story, inviting viewers to pause and appreciate the details that often go
+            unnoticed in the hustle and bustle of city living.</p>
+        </div>
+        <div class='mainImage-container' id='mainImage2'>
+            <img src="images/projects/elevator.jpg" alt="Project 1 - Photo 1">
+        </div>
+        <div class="horizontal-scroll-container hidden" id="gallery2">
+            <img src="images/projects/bicycle.jpg" alt="Project 2 - Photo 1">
+            <img src="images/projects/curtain.jpg" alt="Project 2 - Photo 2">
+            <img src="images/projects/shovel.jpg" alt="Project 2 - Photo 3">
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+    <div class="project">
+        <div class="description-container">
+            <h2 class="project-title" id='PT3' onclick="toggleGallery('mainImage3','gallery3','PT3')">Project 3</h2>
+            <p class="project-description" id="DescriptionTitle3"
+               onclick="toggleDescription('description3','DescriptionTitle3')">Description of Project 3.</p>
+             <p class="detail-description hidden" id="description3">Project 1 showcases a captivating series of photographs
+            capturing the essence of urban
+            life. Through a lens focused on everyday moments, this collection explores the beauty found in the mundane.
+            Each photograph tells a unique story, inviting viewers to pause and appreciate the details that often go
+            unnoticed in the hustle and bustle of city living.</p>
+        </div>
+        <div class='mainImage-container' id='mainImage3'>
+            <img src="images/projects/elevator.jpg" alt="Project 1 - Photo 1">
+        </div>
+        <div class="horizontal-scroll-container hidden" id="gallery3">
+            <img src="images/projects/bicycle.jpg" alt="Project 2 - Photo 1">
+            <img src="images/projects/curtain.jpg" alt="Project 2 - Photo 2">
+            <img src="images/projects/shovel.jpg" alt="Project 2 - Photo 3">
+        </div>
+    </div>
+    <div class="project">
+        <div class="description-container">
+            <h2 class="project-title" id='PT4' onclick="toggleGallery('mainImage4','gallery4','PT4')">Project 2</h2>
+            <p class="project-description" id="DescriptionTitle4"
+               onclick="toggleDescription('description4','DescriptionTitle4')">Description of Project 2.</p>
+            <p class="detail-description hidden" id="description4">Project 1 showcases a captivating series of photographs
+            capturing the essence of urban
+            life. Through a lens focused on everyday moments, this collection explores the beauty found in the mundane.
+            Each photograph tells a unique story, inviting viewers to pause and appreciate the details that often go
+            unnoticed in the hustle and bustle of city living.</p>
+        </div>
+        <div class='mainImage-container' id='mainImage4'>
+            <img src="images/projects/elevator.jpg" alt="Project 1 - Photo 1">
+        </div>
+        <div class="horizontal-scroll-container hidden" id="gallery4">
+            <img src="images/projects/bicycle.jpg" alt="Project 2 - Photo 1">
+            <img src="images/projects/curtain.jpg" alt="Project 2 - Photo 2">
+            <img src="images/projects/shovel.jpg" alt="Project 2 - Photo 3">
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+</section>
 
-        <!-- Add more project divs as necessary -->
-    </section>
-
-    <script src="projects.js"></script>
+<script src="projects.js"></script>
 </body>
 </html>
