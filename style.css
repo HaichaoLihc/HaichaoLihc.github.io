@@ -142,14 +142,15 @@ h4{
 #blurry-screen p:nth-child(1) {
     font-size: 3vw;
     color: white;
-    margin: 0;
+    margin: 15px;
     opacity: 0; /* Start with 0 opacity */
     transform: translateY(20px); /* Move the element down initially */
     animation: fadeInUp 1s ease-out 0.5s forwards; /* Apply animation */
+    transition: color 1s ease;
 }
 
 #blurry-screen p:nth-child(2){
-    margin-top: 30px;
+    margin: 15px;
     font-size: 2vw;
     color: white;
     opacity: 0;
@@ -264,7 +265,8 @@ footer {
 }
 
 .controls button:hover {
-    color: black;
+    color: rgb(89, 213, 224);
+    scale: 1.1;
 }
 
 .underneath-div {
@@ -293,13 +295,21 @@ footer {
     width: 100%;
     height: 100%;
     background-color: black;
-    opacity: 0.9;
+    opacity: 0.8;
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+}
+
+#blurry-screen>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 #empty-screen{
