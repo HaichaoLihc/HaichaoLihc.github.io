@@ -35,7 +35,7 @@ document.getElementById('B2').addEventListener('click', () => {
 })
 
 // Genre = landscape
-document.getElementById('B3').addEventListener('click', () => {
+document.getElementById('B4').addEventListener('click', () => {
     let allImage = document.querySelectorAll('div.photos>div');
     for(i=0;i<allImage.length;i++){
         if (allImage[i].classList.contains('landscape')===false){
@@ -48,7 +48,7 @@ document.getElementById('B3').addEventListener('click', () => {
 })
 
 // Genre = street
-document.getElementById('B4').addEventListener('click', () => {
+document.getElementById('B3').addEventListener('click', () => {
     let allImage = document.querySelectorAll('div.photos>div');
     for(i=0;i<allImage.length;i++){
         if (allImage[i].classList.contains('street')===false){

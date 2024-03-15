@@ -21,9 +21,11 @@ function changePhoto(photo,index){
     currentPhotoIndex[index] = (currentPhotoIndex[index] + 1) % photos[index].length;
 }
 
-function nextPhoto(id) {
+function nextPhoto(id,element) {
         if(Flag[id] === false){
+            toggleTitle(element)
             photoElement[id].style.opacity = '0';
+            console.log(photoElement[id])
             setTimeout(() => {changePhoto(photoElement[id],id)
                 setTimeout(()=>{photoElement[id].style.opacity = '1';},500);
             }, 500);
@@ -34,7 +36,10 @@ function nextPhoto(id) {
         }
 }
 
-function showcoverphoto(id){
+function showCoverPhoto(id,element){
+        if (Flag[id] === true){
+            toggleTitle(element);
+        }
         Flag[id] = false;
         photoElement[id].style.opacity = '0';
         setTimeout(()=>{
@@ -46,3 +51,7 @@ function showcoverphoto(id){
 
     }
 
+function toggleTitle(element){
+    let title = document.getElementById(element);
+    title.classList.toggle('clicked');
+}

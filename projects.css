@@ -55,7 +55,7 @@ a:hover{
 
 .project-title:hover,
 .project-title.clicked{
-    color: white;
+    color: #F5DD61;
 }
 
 .project-description {
@@ -89,6 +89,7 @@ a:hover{
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease-in-out;
+    cursor: pointer;
 }
 
 .mainImage-container>img {

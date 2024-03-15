@@ -46,25 +46,28 @@ a:hover{
 }
 .book-description{
     width: 50%;
-    padding: 40px;
-    overflow: scroll;
+    margin: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-
+.book-description>div{
+    overflow: scroll;
+}
 .book-description h1 {
     cursor: pointer;
     transition: transform 0.3s;
 }
-.book-description h1:hover{
+.book-description h1:hover,
+.clicked{
+    color:#FAA300;
     transform: scale(1.2);
 }
 
 .book-cover{
     width: 50%;
-    padding: 40px;
+    margin: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,7 +76,7 @@ a:hover{
 
 }
 .book-cover:hover{
-    transform: scale(1.02);
+    transform: scale(1.1);
 }
 
 .book-cover-top{

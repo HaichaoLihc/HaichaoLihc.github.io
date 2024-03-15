@@ -13,8 +13,3 @@ function toggleDescription(descriptionId,descriptionTitleId) {
     mainImage.classList.toggle('hidden');
     TitleElement.classList.toggle('clicked');
   }
-
-  function scrollToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
