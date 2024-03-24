@@ -34,15 +34,17 @@ setInterval(nextPhoto, 5000);
 const colors = ['#59D5E0', '#F5DD61', '#FAA300','#F4538A'];
 document.addEventListener('DOMContentLoaded', ()=> {
     window.addEventListener('scroll', ()=> {
-        const header = document.getElementsByClassName('welcome-section');
         const headerBackdrop = document.getElementById('blurry-screen');
-        const frame = document.getElementById('frame');
-
+        const boxBackdrop = document.getElementsByClassName('selected-work-box');
         let scrollPosition = window.scrollY;
-
         // Adjust opacity based on scroll position
         headerBackdrop.style.opacity = 0.8 - (scrollPosition / (0.6 * window.innerHeight));
-
+        for(let i = 0; i < 4; i++){
+            if (scrollPosition > (0.8 + (i*0.8)) * window.innerHeight) {
+                boxBackdrop[i].style.opacity = (scrollPosition / ((0.8 + (i*0.45)) * window.innerHeight)) - 0.8 ;
+                boxBackdrop[i].querySelector('h2').style.color = colors[i]
+            }
+        }
 
     })
 })
