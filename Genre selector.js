@@ -101,3 +101,9 @@ function openModal(imageSrc) {
 function closeModal() {
     document.getElementById('imageModal').style.display = 'none';
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 100);
+});

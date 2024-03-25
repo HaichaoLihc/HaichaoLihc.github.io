@@ -55,3 +55,9 @@ function toggleTitle(element){
     let title = document.getElementById(element);
     title.classList.toggle('clicked');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 100);
+});
