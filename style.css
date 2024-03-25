@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     font-family: 'Arial', sans-serif;
@@ -227,9 +228,10 @@ footer {
     text-align: center;
 }
 
-.photograph-section hr{
-    width: 100%;
-    margin: 20px;
+hr{
+    width: 100vw;
+    margin-top: 40px;
+    margin-bottom: 20px;
     border: 1px solid white;
 }
 .photograph-section p{
@@ -280,6 +282,14 @@ footer {
     scale: 1.1;
 }
 
+#stopButton{
+    color: white;
+}
+
+#stopButton:hover{
+    color: white;
+    scale: 1.1;
+}
 .underneath-div {
     display: flex;
     position: fixed;
@@ -365,7 +375,7 @@ footer {
     height: 80vh;
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.85);
 
 }
 .selected-work-title{
@@ -375,6 +385,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 }
 .selected-work-container{
     flex: 2;
@@ -394,7 +405,7 @@ footer {
 }
 
 .selected-work-container>div{
-    width: calc(40% - 20px);
+    width: calc(50% - 20px);
     height: calc(50% - 20px);
     overflow: hidden;
     display: flex;

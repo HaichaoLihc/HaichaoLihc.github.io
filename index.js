@@ -1,7 +1,11 @@
 // Add or create this JavaScript file
 const photos = [
-    "images/index/bicycle.jpg",
-    "images/index/elevator.jpg",
+    "images/index/2023/mountain.jpg",
+    "images/index/2022/bicycle.jpg",
+    "images/index/2020-21/Santa%20Monica%20Beach,%20California%205.jpg",
+    "images/index/2020-21/Yosemite,%20California%202.jpg",
+    "images/index/2020-21/Angel%20Island.jpg",
+    "images/index/2023/wave.jpg"
     // Add more image paths as needed
 ];
 
@@ -27,6 +31,21 @@ function prevPhoto() {
     showPhoto(currentPhotoIndex);
 }
 
+let intervalId
+intervalId = setInterval(nextPhoto, 5000)
+const stopButton = document.getElementById("stopButton");
+function toggleAutoPlay() {
+        if (intervalId) {
+            clearInterval(intervalId);
+            stopButton.style.color = 'rgba(255,255,255,0.3)';
+            intervalId = null; // Reset intervalId
+        } else {
+            // If interval is not running, start it
+            intervalId = setInterval(nextPhoto, 5000);
+            stopButton.style.color = 'rgba(255,255,255,1)';
+        }
+
+    }
 
 const colors = ['#59D5E0', '#F5DD61', '#FAA300', '#F4538A'];
 window.addEventListener('scroll', () => {
@@ -68,5 +87,5 @@ setInterval(changeColor, interval);
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function() {
         window.scrollTo(0, 0);
-    }, 100);
+    }, 150);
 });
