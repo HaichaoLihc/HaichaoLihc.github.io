@@ -1,11 +1,13 @@
 // Add or create this JavaScript file
 const photos = [
-    "images/index/2023/mountain.jpg",
-    "images/index/2022/bicycle.jpg",
-    "images/index/2020-21/Santa%20Monica%20Beach,%20California%205.jpg",
-    "images/index/2020-21/Yosemite,%20California%202.jpg",
-    "images/index/2020-21/Angel%20Island.jpg",
-    "images/index/2023/wave.jpg"
+    "images/2022/bicycle.jpg",
+    "images/2020-21/Santa%20Monica%20Beach,%20California%205.jpg",
+    "images/2023/mountain.jpg",
+    "images/2022/cloth.jpg",
+    "images/2020-21/Yosemite,%20California%202.jpg",
+    "images/2020-21/Angel%20Island.jpg",
+    "images/2023/wave.jpg",
+
     // Add more image paths as needed
 ];
 
@@ -84,8 +86,22 @@ function changeColor() {
 // Call the changeColor function at the specified interval
 setInterval(changeColor, interval);
 
+function goto2023() {
+    window.location.href = 'yearly-photo-pages/2023.html';
+}
+function goto2022() {
+    window.location.href = 'yearly-photo-pages/2022.html';
+}
+function goto2021() {
+    window.location.href = 'yearly-photo-pages/2020-21.html';
+
+}
+function goto2019() {
+    window.location.href = 'yearly-photo-pages/2018-19.html';
+}
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function() {
         window.scrollTo(0, 0);
     }, 150);
 });
+

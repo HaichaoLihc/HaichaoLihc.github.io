@@ -7,7 +7,6 @@ body{
     background-color: #f5f5f5;
     color: #333;
     overflow-x: hidden;
-
 }
 
 nav{
@@ -38,6 +37,7 @@ a:hover{
 .navBar{
     position: fixed;
     top: 0;
+    right: -10px;
     width: 100%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
@@ -249,12 +249,12 @@ hr{
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: inline-block;
+
 }
 
 .photo-container img {
 
     height: 50vh;
-    transition: transform 0.5s ease-in-out;
     vertical-align: bottom;
 }
 
@@ -376,7 +376,8 @@ hr{
     display: flex;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.85);
-
+    z-index: 2;
+    cursor: pointer;
 }
 .selected-work-title{
     flex: 1;
@@ -412,7 +413,6 @@ hr{
     justify-content: center;
     border-radius: 10px;
     margin: 10px;
-    z-index: 2;
     transition: transform 0.3s ease-in-out;
 }
 .selected-work-container>div:hover{

@@ -1,0 +1,95 @@
+body{
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: black;
+    overflow-x: hidden;
+}
+h1{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+/*Start of NavBar*/
+nav{
+    margin-bottom: 10px;
+}
+nav a{
+    margin-right: 10px;
+    margin-left: 10px;
+    text-decoration: none;
+    color: darkgray;
+    transition: color 0.3s;
+}
+a:hover{
+    color: white;
+}
+.navBar{
+    right: -10px;
+    width: 100%;
+    box-shadow: 0 10px 15px rgba(0,0, 0, 0.5);
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    z-index: 2;
+    position: fixed;
+}
+/*end of navigation bar*/
+hr{
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 0;
+    border-bottom: 2px solid white;
+}
+.grid-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: background-color 0.5s ease-in-out;
+}
+
+.grid-item img {
+    height: 100%;
+    margin: 15px;
+}
+
+.horizontal img{
+    height:80%;
+    margin: 10px;
+}
+
+.grid-item:hover {
+    background-color: rgba(0, 0, 0,0.5);
+}
+
+.placeholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 0;
+    padding-top: 130px;
+}
+
+.blurry-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    filter: blur(10px);
+    z-index: -1;
+}

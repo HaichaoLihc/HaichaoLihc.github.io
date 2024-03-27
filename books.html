@@ -2,56 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Books</title>
-    <link rel="stylesheet" href="book.css">
+    <link href="book.css" rel="stylesheet">
 </head>
 
 <body>
-    <section class="navBar">
-        <h3>Haichao Li Photography</h3>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="books.html">Books</a> 
-            <a href="gallery.html">Gallery</a> 
-            <a href="projects.html">Projects</a>
-        </nav>
-    </section>
-    <section class="book-segment">
-        <div class="book-description" >
-            <h1 id = 'book1' onclick="showCoverPhoto('photo1','book1')">Book title</h1>
-            <div>
-                <p>In the heart of the bustling city of Arcadia lies a hidden world beyond the ordinary, where dreams come alive and secrets unravel. "The Enigma of Dreams" follows the journey of Maya, a young woman with a gift she doesn't fully understand – the ability to enter and manipulate dreams.
-
-Drawn into a web of intrigue and mystery, Maya finds herself navigating the enigmatic Dream Realm, a realm where reality bends and time stands still. As she delves deeper into this surreal landscape, Maya discovers that her powers are tied to an ancient prophecy that could change the fate of both the Dream Realm and the waking world.
-
-Joined by an eclectic group of allies, including a wise old sage, a mischievous sprite, and a mysterious stranger with secrets of his own, Maya must unravel the truth behind the enigma of dreams before it's too late. But with dark forces at play and betrayal lurking around every corner, she soon realizes that the fate of both realms may rest in her hands.
-
-Combining elements of fantasy, mystery, and adventure, "The Enigma of Dreams" is a captivating tale of courage, friendship, and the power of imagination. Prepare to be swept away on an unforgettable journey through the realms of dreams and reality.</p>
-            </div>
+<section class="navBar">
+    <h3>Haichao Li Photography</h3>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="projects.html">Projects</a>
+    </nav>
+</section>
+<section class="hero">
+    <h1>PhotoBooks</h1>
+    <hr>
+</section>
+<h4>Click on the cover to take a look. Click on the title to go back</h4>
+<section class="book-segment">
+    <div class="book-description">
+        <h1 id='book1' onclick="showCoverPhoto('photo1','book1')">One Summer Afternoon At School</h1>
+        <div>
+            <h5>Description</h5>
+            <p>
+                This piece was captured between 2021 and 2023. I compiled the photographs taken on my high school campus
+                upon graduation to create this piece. The inspiration for the title comes from one afternoon during my
+                junior year, nearing summer vacation, when I sat alone by the window at the back of the classroom. The
+                sunlight spilled into this campus that often filled me with worry and even disdain, yet on that day, it
+                filled me with an unprecedented sense of joy and peace. Perhaps I could forever immerse myself in the
+                warmth of some afternoon sun...
+            </p>
+            <p>As graduation approached, I suddenly felt compelled to bring these photos together. As I was about to
+                leave the campus, it seemed as though there was a new connection between the landscapes of the school.
+                This book tells the story of how I connected with this place and how we changed together.
+            <p>
         </div>
-        <div class="book-cover">
-            <img onclick="nextPhoto('photo1','book1')" src="images/books/osaas.png" alt="Book cover" id="photo1" class="height100">
+    </div>
+    <div class="book-cover">
+            <img alt="Book cover" class="height100" id="photo1" onclick="nextPhoto('photo1','book1')"
+             src="images/books/osaas.png">
+    </div>
+</section>
+<section class="book-segment">
+    <div class="book-description">
+        <h1 id='book2' onclick="showCoverPhoto('photo2','book2')">A River Runs Through It</h1>
+        <div>
+            <h5>Description</h5>
+            <p>A river runs through these pictures as it runs through our lives.
+                Life is depicted as a dance, the type of dance that the dancer creates her choreography along the music.
+                If life is a dance, then the music of time is the constraint, since we cannot control time or the
+                context in which we are born. The point is that we have to invent our own steps against this backdrop.
+                As we invent our steps, we keep moving and changing.
+                It’s there and it’s gone.</p>
+            <p>Moving and changing is the living beauty of our life, since life is not some static product. The
+                photographs in this book is not static, not depicting the decisive moments in our movements, but fluid,
+                sporadically hinting people’s movements.
+                The verb “brighten” implies that the eye is always catching a new idea from which it can make up a new
+                step. After we did one step we wonder what shall we do next and our eyes are brightened and we continue
+                to do steps.
+            </p>
+            <p>Between those casual moments runs a river which is the river of life. I hope the way the river fills the
+                gap between pictures can inspire people to imagine what steps or movements are these people doing and
+                what have brightened their eyes and what steps follow next.
+                The sunlight hits the river and is reflected as starlight. The river of time or the music of time
+                carries us forward, and we catch the light crumbled up by the movement of river to create our steps.</p>
         </div>
-    </section>
-    <section class="book-segment">
-        <div class="book-description">
-            <h1 id = 'book2' onclick="showCoverPhoto('photo2','book2')">Book title</h1>
-            <div>
-                <p>In the heart of the bustling city of Arcadia lies a hidden world beyond the ordinary, where dreams come alive and secrets unravel. "The Enigma of Dreams" follows the journey of Maya, a young woman with a gift she doesn't fully understand – the ability to enter and manipulate dreams.
+    </div>
+    <div class="book-cover">
 
-Drawn into a web of intrigue and mystery, Maya finds herself navigating the enigmatic Dream Realm, a realm where reality bends and time stands still. As she delves deeper into this surreal landscape, Maya discovers that her powers are tied to an ancient prophecy that could change the fate of both the Dream Realm and the waking world.
-
-Joined by an eclectic group of allies, including a wise old sage, a mischievous sprite, and a mysterious stranger with secrets of his own, Maya must unravel the truth behind the enigma of dreams before it's too late. But with dark forces at play and betrayal lurking around every corner, she soon realizes that the fate of both realms may rest in her hands.
-
-Combining elements of fantasy, mystery, and adventure, "The Enigma of Dreams" is a captivating tale of courage, friendship, and the power of imagination. Prepare to be swept away on an unforgettable journey through the realms of dreams and reality.</p>
-            </div>
-        </div>
-        <div class="book-cover">
-            <img onclick="nextPhoto('photo2','book2')" src="images/books/srrti.png" alt="Book cover" id="photo2" class="height100">
-        </div>
-    </section>
-    <script src="book.js"></script>
+        <img alt="Book cover" class="height100" id="photo2" onclick="nextPhoto('photo2','book2')"
+             src="images/books/srrti.png">
+    </div>
+</section>
+<script src="book.js"></script>
 </body>
 </html>
 

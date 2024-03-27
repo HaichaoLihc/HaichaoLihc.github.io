@@ -5,6 +5,7 @@ body{
     font-family: 'Arial', sans-serif;
     background-color: black;
     color: #333;
+    overflow-x: hidden;
 }
 
 /*start of navigation section*/
