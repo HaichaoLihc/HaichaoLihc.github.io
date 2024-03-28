@@ -115,7 +115,7 @@ function filterImages(){
             createDivs(currentPhotos);
             let allDivs = document.querySelectorAll('div.photos>div');
             appendNextImage(0,currentPhotos,allDivs);
-            setTimeout(()=>{showImage(0,currentPhotos,allDivs,time);},time)
+            setTimeout(()=>{showImage(0,currentPhotos,allDivs,time)},alltime)
 
         })
     }
@@ -132,7 +132,7 @@ function filterImages(){
 createDivs(photos);
 let allDivs = document.querySelectorAll('div.photos>div');
 appendNextImage(0,photos,allDivs);
-setTimeout(()=>{showImage(0,photos,allDivs,alltime);},alltime)
+setTimeout(()=>{showImage(0,photos,allDivs,alltime);},200)
 filterImages();
 
 
