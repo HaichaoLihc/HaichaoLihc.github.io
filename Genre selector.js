@@ -1,10 +1,15 @@
 //Function to add images to the gallery
+const time = 80; // Time in milliseconds to wait before showing the next image
+const alltime = 30;
 const galleryPhotos = document.querySelector('div.photos');
 const genres = ['light', 'water', 'street', 'landscape', 'people'];
-let photoData = {'light':[
+let photoData = {'people':[
+        "images/2022/fisher.jpg","images/2022/gaze.jpg",
+        "images/2022/oldman.jpg",
+    ],'light':[
         "images/2018-19/flower.jpg","images/2020-21/couple.jpg", "images/2020-21/helicopter.jpg",
         "images/2022/bicycles.jpg","images/2022/cloth.jpg","images/2022/grass.jpg",
-        "images/2022/light-on-leaves.jpg","images/2022/red-wood.jpg","images/2022/swan.jpg",
+        "images/2022/light-on-leaves.jpg","images/2022/swan.jpg",
         "images/2023/railings.jpg",
     ], 'water':[
         "images/2022/light.jpg","images/2022/water.jpg","images/2022/wave.jpg",
@@ -19,9 +24,6 @@ let photoData = {'light':[
         "images/2022/shovel.jpg","images/2022/snow.jpg","images/2022/xiaomi.jpg",
         "images/2023/bedsheet.jpg","images/2023/cars.jpg","images/2023/gas-station.jpg",
         "images/2023/hotpot.jpg","images/2023/kite.jpg","images/2023/stairs.jpg"
-
-
-
     ], 'landscape':[
         "images/2018-19/skyline.jpg", "images/2018-19/park.jpg","images/2020-21/Angel%20Island.jpg",
         "images/2020-21/bird-on-rock.jpg","images/2020-21/boulder.jpg","images/2020-21/cliff.jpg",
@@ -31,18 +33,15 @@ let photoData = {'light':[
         "images/2020-21/Yosemite,%20California%202.jpg","images/2022/last-light.jpg",
         "images/2023/curve.jpg","images/2023/mountain.jpg","images/2023/boats.jpg",
         "images/2023/moonrise.jpg","images/2023/woods.jpg"
-
-
-    ], 'people':[
-        "images/2022/fisher.jpg","images/2022/gaze.jpg",
-        "images/2022/oldman.jpg",
     ]
 };
+
 let photos = [];
 for (let key in photoData) {
     photos = photos.concat(photoData[key]);
 }
-shuffle(photos)
+photos.reverse();
+// shuffle(photos)
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -52,18 +51,19 @@ function shuffle(array) {
     return array;
 }
 
-function appendNextImage(index){
+// takes in an index, an array of photos, and all the divs currently in gallery. Appends the next image to the gallery
+function appendNextImage(index, photos, allDivs){
         if(index < photos.length){
             let img = document.createElement('img');
             img.src = photos[index];
-            console.log(img.height, img.width)
             addGenres(img,photos[index]);
             allDivs[index].appendChild(img);
-            appendNextImage(index+1)
+            appendNextImage(index+1,photos,allDivs)
         }
 }
 
-function showImage(index){
+// takes in an index, an array of photos, and all the divs currently in gallery. Shows the images in the gallery
+function showImage(index, photos, allDivs, appendTime){
         if(index < photos.length){
             let img = allDivs[index].querySelector('img');
             if (img.naturalHeight > img.naturalWidth) {
@@ -76,7 +76,7 @@ function showImage(index){
             img.offsetHeight; // Trigger reflow
             img.style.opacity = '1';
             allDivs[index].style.transform = 'translateY(0)';
-            setTimeout(()=>{showImage(index+1);},100)
+            setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime)
         }
 }
 
@@ -88,7 +88,8 @@ function addGenres(img,src){
     }
 }
 
-function createDivs(){
+// Function to create divs for each photo
+function createDivs(photos){
     for(let i=0;i<photos.length;i++){
         let newDiv = document.createElement('div');
         newDiv.classList.add('photo-container');
@@ -97,39 +98,45 @@ function createDivs(){
 
 }
 
-createDivs();
-let allDivs = document.querySelectorAll('div.photos>div');
-appendNextImage(0);
-setTimeout(()=>{showImage(0);},200)
-
+// Function to clear all divs in the gallery
+function clearDivs(){
+    let allDivs = document.querySelectorAll('div.photos>div');
+    for(let i=0;i<allDivs.length;i++){
+        allDivs[i].remove();
+    }
+}
 
 // Function to filter images based on genre
 function filterImages(){
     for(let i=0;i<genres.length;i++){
         document.getElementById(genres[i]).addEventListener('click', ()=>{
-            for(let j=0;j<allDivs.length;j++){
-                let image = allDivs[j].querySelector('img');
-                console.log(image)
-                if (!image.classList.contains(genres[i])){
-                    allDivs[j].classList.add('hide');
-                }
-                if (image.classList.contains(genres[i])&&allDivs[j].classList.contains('hide')){
-                    allDivs[j].classList.remove('hide');
-                }
-            }
+            let currentPhotos = [...photoData[genres[i]]];
+            clearDivs();
+            createDivs(currentPhotos);
+            let allDivs = document.querySelectorAll('div.photos>div');
+            appendNextImage(0,currentPhotos,allDivs);
+            setTimeout(()=>{showImage(0,currentPhotos,allDivs,time);},time)
+
         })
     }
     document.getElementById('all').addEventListener('click', ()=>{
+        clearDivs();
+        createDivs(photos);
         let allDivs = document.querySelectorAll('div.photos>div');
-        for(let i=0;i<allDivs.length;i++){
-            if (allDivs[i].classList.contains('hide')){
-                allDivs[i].classList.remove('hide');
-            }
-        }
+        appendNextImage(0,photos,allDivs);
+        setTimeout(()=>{showImage(0,photos,allDivs,alltime);},alltime)
     })
 }
 
+
+createDivs(photos);
+let allDivs = document.querySelectorAll('div.photos>div');
+appendNextImage(0,photos,allDivs);
+setTimeout(()=>{showImage(0,photos,allDivs,alltime);},alltime)
 filterImages();
+
+
+
 
 
 // Function to change the active class styling of the genre buttons

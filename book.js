@@ -61,7 +61,9 @@ function showCoverPhoto(id,element){
         photoElement[id].classList.remove('mark');
         Flag[id] = false;
         photoElement[id].style.opacity = '0';
+
         setTimeout(()=>{
+            updateSquare();
             photoElement[id].src = coverphoto[id];
             setTimeout(()=>{photoElement[id].style.opacity = '1';},500)
         },500)
@@ -78,14 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo(0, 0);
     }, 100);
 });
-
-window.onload = function() {
-    let square = document.getElementsByClassName('book-cover');
-    // let image = document.getElementById('image');
-
-    function updateSquare() {
-        console.log('updateSquare');
-        for(i=0; i<square.length; i++) {
+function updateSquare() {
+        for(let i=0; i<square.length; i++) {
             let width = square[i].offsetWidth;
             let height = square[i].offsetHeight;
             let image = square[i].querySelector("img")
@@ -101,7 +97,11 @@ window.onload = function() {
                 }
             }
         }
-    }
+}
+
+let square = document.getElementsByClassName('book-cover');
+window.onload = function() {
+    // let image = document.getElementById('image');
     updateSquare();
     window.addEventListener('resize', updateSquare);
 
