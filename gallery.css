@@ -120,31 +120,25 @@ h4{
     margin: 10px;
     cursor: pointer;
     transform: translateY(20px); /* Initially, images will be translated down by 20px */
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.1s ease, transform 0.5s ease;
     /*transition: transform 0.3s;*/
 
 }
-
-.photos>div img{
+.photo-container img{
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 .photos>div:hover{
-    transform: scale(1.05);
+    opacity: 0.6;
 }
 .horizontal{
     height: 100%;
 }
-
 .vertical{
     width:100%;
 }
 
 /* functionality of gallery buttons */
-.hide{
-    display: none;
-}
-
 .genreSelector button.active {
     border-bottom: 3px solid black; /* Set the border color for the active link */
 }

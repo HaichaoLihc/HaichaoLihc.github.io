@@ -5,7 +5,6 @@ body{
     font-family: 'Arial', sans-serif;
     background-color: black;
     color: #333;
-    overflow-x: hidden;
 }
 
 /*start of navigation section*/
@@ -65,6 +64,8 @@ a:hover{
     color: #999;
     width: 200px;
     transition: color 0.1s;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 .description-container{
     display: flex;
@@ -81,6 +82,7 @@ a:hover{
 
 .detail-description {
     margin: 20px;
+    margin-top: 0;
     font-style: italic;
     color: #999;
     max-width: 1000px;
@@ -91,13 +93,15 @@ a:hover{
     justify-content: center;
     align-items: center;
     transition: opacity 0.5s ease-in-out;
+    margin-top: 20px;
+    margin-bottom: 70px;
 }
 
 .mainImage-container>img {
     display: flex;
     height: 60vh;
     cursor: pointer;
-    transition: scale 0.2s ease-in-out;
+    transition: scale 0.1s ease;
 }
 
 .mainImage-container>img:hover {
@@ -107,10 +111,13 @@ a:hover{
 .horizontal-scroll-container {
     display: block;
     overflow-x: scroll;
+    overflow-y: hidden;
     white-space: nowrap;
     height: 60vh;
     transition: opacity 0.5s ease-in-out;
     cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 70px;
 }
 
 .horizontal-scroll-container img {
