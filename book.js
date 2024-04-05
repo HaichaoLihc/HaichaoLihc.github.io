@@ -102,6 +102,8 @@ function updateSquare() {
 let square = document.getElementsByClassName('book-cover');
 window.onload = function() {
     // let image = document.getElementById('image');
+    square.querySelector('img').style.opacity = '0';
+    setTimeout(()=>{square.querySelector('img').style.opacity = '1';},500);
     updateSquare();
     window.addEventListener('resize', updateSquare);
 
