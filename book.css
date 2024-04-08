@@ -82,17 +82,12 @@ h4{
     cursor: pointer;
     transition: transform 0.3s;
 }
-.book-description h1.clicked{
-    color:#FAA300;
-    transform: scale(1.15);
-}
 
 .book-description h1:hover{
     color:#FAA300;
-    transform: scale(1.2);
 }
 
-.book-cover{
+.book-display{
     width: 35vw;
     margin-left: 5vw;
     margin-right: 5vw;
@@ -101,24 +96,47 @@ h4{
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.3s;
+    flex-direction: column;
+
+}
+
+.book-container{
+    height: 92%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.book-container img{
+    height: 100%;
+}
+
+.controls{
+    height: 8%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls button {
+    position: relative;
+    padding: 5px;
+    margin: 0 5px;
+    border: none;
     cursor: pointer;
-    overflow: auto;
-
-}
-.book-cover:hover{
-    transform: scale(1.1);
-}
-
-.book-cover img {
-    opacity: 1;
-    transition: opacity 0.5s;
+    font-size: 16px;
+    color: lightgray;
+    background-color: transparent;
+    transition: color 0.1s ease-in-out;
+    z-index: 2;
 }
 
-
-/*end of book segment*/
-
-/*fake class*/
-.mark{
-
+.controls button:hover {
+    color: #FAA300;
+    scale: 1.1;
 }
+
+.mark{}

@@ -21,10 +21,10 @@
     <h1>PhotoBooks</h1>
     <hr>
 </section>
-<h4>Click on the cover to take a look. Click on the title to go back</h4>
+<h4>Click on the arrows to take a look. Click on the title to go to cover</h4>
 <section class="book-segment">
     <div class="book-description">
-        <h1 id='book1' onclick="showCoverPhoto('photo1','book1')">One Summer Afternoon At School</h1>
+        <h1 id='book1' onclick="goToCover('photo1')">One Summer Afternoon At School</h1>
         <div>
             <h5>Description</h5>
             <p>
@@ -41,14 +41,19 @@
             <p>
         </div>
     </div>
-    <div class="book-cover">
-            <img alt="Book cover" class="height100" id="photo1" onclick="nextPhoto('photo1','book1')"
-             src="images/books/osaas.png">
+     <div class="book-display">
+        <div class = 'book-container'>
+            <img id="photo1" alt="Book cover" src="images/books/osaas.png">
+        </div>
+        <div class="controls">
+            <button onclick="prevPhoto('photo1')">&#9664;</button>
+            <button onclick="nextPhoto('photo1')">&#9654;</button>
+        </div>
     </div>
 </section>
 <section class="book-segment">
     <div class="book-description">
-        <h1 id='book2' onclick="showCoverPhoto('photo2','book2')">A River Runs Through It</h1>
+        <h1 onclick="goToCover('photo2')">A River Runs Through It</h1>
         <div>
             <h5>Description</h5>
             <p>A river runs through these pictures as it runs through our lives.
@@ -71,10 +76,14 @@
                 carries us forward, and we catch the light crumbled up by the movement of river to create our steps.</p>
         </div>
     </div>
-    <div class="book-cover">
-
-        <img alt="Book cover" class="height100" id="photo2" onclick="nextPhoto('photo2','book2')"
-             src="images/books/srrti.png">
+    <div class="book-display">
+        <div class = 'book-container'>
+            <img id="photo2" alt="Book cover" src="images/books/srrti.png">
+        </div>
+        <div class="controls">
+            <button onclick="prevPhoto('photo2')">&#9664;</button>
+            <button onclick="nextPhoto('photo2')">&#9654;</button>
+        </div>
     </div>
 </section>
 <script src="book.js"></script>

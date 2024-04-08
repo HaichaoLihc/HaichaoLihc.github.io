@@ -1,4 +1,5 @@
 const photos = {'photo1':[
+    "images/books/osaas.png",
     "images/books/2-1.jpg",
     "images/books/2-2.jpg",
     "images/books/2-3.jpg",
@@ -13,6 +14,7 @@ const photos = {'photo1':[
         "images/books/2-12.jpg"
 
 ],'photo2':[
+    "images/books/srrti.png",
     "images/books/1.jpg",
     "images/books/2.jpg",
     "images/books/3.jpg",
@@ -24,87 +26,84 @@ const photos = {'photo1':[
         "images/books/9.jpg",
         "images/books/10.jpg",
 ]};
-const coverphoto = {'photo1':"images/books/osaas.png",'photo2':"images/books/srrti.png"};
+
 let currentPhotoIndex = {'photo1':0,'photo2':0};
 const photoElement = {'photo1':document.getElementById("photo1"),
     'photo2':document.getElementById("photo2")
 };
-let Flag = {'photo1':false,'photo2':false};
 
-function changePhoto(photo,index){
-    photo.src = photos[index][currentPhotoIndex[index]];
-    photo.style.width = '100%';
-    photo.style.height = 'auto';
-    currentPhotoIndex[index] = (currentPhotoIndex[index] + 1) % photos[index].length;
-}
-
-function nextPhoto(id,element) {
-        if(Flag[id] === false){
-            toggleTitle(element)
-            photoElement[id].classList.add('mark');
-            photoElement[id].style.opacity = '0';
-            console.log(photoElement[id])
-            setTimeout(() => {changePhoto(photoElement[id],id)
-                setTimeout(()=>{photoElement[id].style.opacity = '1';},500);
-            }, 500);
-            Flag[id] = true;
-        }
-        else{
-            changePhoto(photoElement[id],id)
-        }
-}
-
-function showCoverPhoto(id,element){
-        if (Flag[id] === true){
-            toggleTitle(element);
-        }
-        photoElement[id].classList.remove('mark');
-        Flag[id] = false;
-        photoElement[id].style.opacity = '0';
-
+function nextPhoto(id) {
+    if(currentPhotoIndex[id] === 0 || currentPhotoIndex[id] === photos[id].length-1){
+        photoElement[id].style.opacity = '0'
+        currentPhotoIndex[id] = (currentPhotoIndex[id] + 1)%photos[id].length
+        photoElement[id].src = photos[id][currentPhotoIndex[id]];
         setTimeout(()=>{
-            updateSquare();
-            photoElement[id].src = coverphoto[id];
-            setTimeout(()=>{photoElement[id].style.opacity = '1';},500)
-        },500)
-
+            updateSquare()
+            photoElement[id].style.opacity = '1'
+        }, 150)
+    }else{
+        currentPhotoIndex[id] = (currentPhotoIndex[id] + 1)%photos[id].length
+        photoElement[id].src = photos[id][currentPhotoIndex[id]];
     }
 
-function toggleTitle(element){
-    let title = document.getElementById(element);
-    title.classList.toggle('clicked');
+
 }
 
+function prevPhoto(id){
+    if(currentPhotoIndex[id] === 0 || currentPhotoIndex[id] === 1){
+        photoElement[id].style.opacity = '0'
+        currentPhotoIndex[id] = (currentPhotoIndex[id] - 1 + photos[id].length)%photos[id].length
+        photoElement[id].src = photos[id][currentPhotoIndex[id]];
+        setTimeout(()=>{
+            updateSquare()
+            photoElement[id].style.opacity = '1'
+        }, 150)
+    }else{
+        currentPhotoIndex[id] = (currentPhotoIndex[id] - 1 + photos[id].length)%photos[id].length
+        photoElement[id].src = photos[id][currentPhotoIndex[id]];
+    }
+
+}
+
+function goToCover(photo){
+    currentPhotoIndex[photo] = -1
+    nextPhoto(photo)
+
+}
+
+
+function updateSquare() {
+        for(let i=0; i<square.length; i++) {
+            let image = square[i].querySelector("img")
+            let width = square[i].offsetWidth;
+            let height = square[i].offsetHeight;
+            let scale = 0
+            if(currentPhotoIndex[`photo${i+1}`] === 0){scale = 0.8}else{scale = 1.4}
+            console.log(scale)
+            if (width > scale * height) {
+                    // If div's width is greater than its height
+                    image.style.width = 'auto';
+                    image.style.height = '100%';
+            } else {
+                    // If div's height is greater than its width
+                    image.style.width = '100%';
+                    image.style.height = 'auto';
+            }
+        }
+}
+
+//
+let square = document.getElementsByClassName('book-container');
+window.addEventListener('resize', updateSquare);
+window.addEventListener('load',updateSquare)
+
+
+
+//functions to improve reloading page experience
+
+//scroll to top when reload
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function() {
         window.scrollTo(0, 0);
     }, 100);
 });
-function updateSquare() {
-        for(let i=0; i<square.length; i++) {
-            let width = square[i].offsetWidth;
-            let height = square[i].offsetHeight;
-            let image = square[i].querySelector("img")
-            if (!image.classList.contains('mark')){
-                if (width > height) {
-                    // If div's width is greater than its height
-                    image.style.width = 'auto';
-                    image.style.height = '100%';
-                } else {
-                    // If div's height is greater than its width
-                    image.style.width = '100%';
-                    image.style.height = 'auto';
-                }
-            }
-        }
-}
-
-let square = document.getElementsByClassName('book-cover');
-window.onload = function() {
-    // let image = document.getElementById('image');
-    square.querySelector('img').style.opacity = '0';
-    setTimeout(()=>{square.querySelector('img').style.opacity = '1';},500);
-    updateSquare();
-    window.addEventListener('resize', updateSquare);
-
-}
