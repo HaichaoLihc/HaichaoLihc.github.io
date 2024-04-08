@@ -37,14 +37,17 @@ let intervalId
 intervalId = setInterval(nextPhoto, 5000)
 const stopButton = document.getElementById("stopButton");
 function toggleAutoPlay() {
+    let text = document.getElementById('stopButton')
         if (intervalId) {
             clearInterval(intervalId);
             stopButton.style.color = 'rgba(255,255,255,0.3)';
             intervalId = null; // Reset intervalId
+            text.textContent = 'autoplay-OFF'
         } else {
             // If interval is not running, start it
             intervalId = setInterval(nextPhoto, 5000);
             stopButton.style.color = 'rgba(255,255,255,1)';
+            text.textContent = 'autoplay-ON'
         }
 
     }
