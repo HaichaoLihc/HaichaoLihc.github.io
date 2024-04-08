@@ -66,7 +66,7 @@ function prevPhoto(id){
 }
 
 function goToCover(photo){
-    currentPhotoIndex[photo] = -1
+    currentPhotoIndex[photo] = photos[photo].length-1
     nextPhoto(photo)
 
 }
