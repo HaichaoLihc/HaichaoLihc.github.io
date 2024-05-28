@@ -43,7 +43,20 @@ for (let key in photoData) {
 photos.reverse();
 
 
-// takes in an index, an array of photos, and all the divs currently in gallery. Appends the next image to the gallery
+// Function to set the stage for the gallery
+// Takes in an array of photos and the initial time to wait before showing the first image
+// Clear divs, creates divs for each photo, appends the images to the divs and shows the images
+function setStage(arrayOfPhotos, initial_time){
+    clearDivs();
+    createDivs(arrayOfPhotos);
+    let allDivs = document.querySelectorAll('div.photos>div');
+    appendNextImage(0,arrayOfPhotos,allDivs);
+    setTimeout(()=>{showImage(0,arrayOfPhotos,allDivs);}, initial_time)
+}
+
+
+// takes in an index, an array of photos, and all the divs currently in gallery. 
+// Appends the next image to the gallery
 function appendNextImage(index, photos, allDivs){
         if(index < photos.length){
             let img = new Image();
@@ -86,11 +99,12 @@ function revealImage(img){
     img.offsetHeight; // Trigger reflow
     img.style.opacity = '1'; //reveal the image
     parentDiv = img.parentElement;
-    parentDiv.style.transform = 'translateY(0)'; // move the image up
+    parentDiv.style.transform = 'translateY(0)'; // animation to move the image up, initial position is negative
     img.addEventListener('click', ()=>openModal(img)); //add click event listener to open closer view
 }
 
 
+// Function to add genres to the image
 function addGenres(img,src){
     for(let key in photoData){
         if (photoData[key].includes(src)) {
@@ -99,14 +113,13 @@ function addGenres(img,src){
     }
 }
 
-// Function to create divs for each photo
+// Function to create divs for each photo in photos array
 function createDivs(photos){
     for(let i=0;i<photos.length;i++){
         let newDiv = document.createElement('div');
         newDiv.classList.add('photo-container');
         galleryPhotos.appendChild(newDiv);
     }
-
 }
 
 
@@ -120,48 +133,29 @@ function clearDivs(){
 
 
 // Function to filter images based on genre
+// Adds event listeners to the genre buttons
 function filterImages(){
     for(let i=0;i<genres.length;i++){
         document.getElementById(genres[i]).addEventListener('click', ()=>{
             let currentPhotos = [...photoData[genres[i]]];
-            clearDivs();
-            createDivs(currentPhotos);
-            let allDivs = document.querySelectorAll('div.photos>div');
-            appendNextImage(0,currentPhotos,allDivs);
-            setTimeout(()=>{showImage(0,currentPhotos,allDivs)},time)
-
+            setStage(currentPhotos, time)
         })
     }
     document.getElementById('all').addEventListener('click', ()=>{
-        clearDivs();
-        createDivs(photos);
-        let allDivs = document.querySelectorAll('div.photos>div');
-        appendNextImage(0,photos,allDivs);
-        setTimeout(()=>{showImage(0,photos,allDivs)},time)
+        setStage(photos, time)
     })
 }
-
-
-// main commands to create divs, append images and show images
-createDivs(photos);
-let allDivs = document.querySelectorAll('div.photos>div');
-appendNextImage(0,photos,allDivs);
-setTimeout(()=>{showImage(0,photos,allDivs);},500)
-filterImages();
 
 
 // Function to change the active class styling of the genre buttons
 document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.genreSelector button');
-
     buttons.forEach(link => {
         link.addEventListener('click', function () {
-
             // Remove the 'active' class from all links
             buttons.forEach(otherLink => {
                 otherLink.classList.remove('active');
             });
-
             // Add the 'active' class to the clicked link
             this.classList.add('active');
         });
@@ -187,3 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 150);
 });
 
+
+// main commands to create divs, append images and show images
+setStage(photos, 0);
+filterImages();
