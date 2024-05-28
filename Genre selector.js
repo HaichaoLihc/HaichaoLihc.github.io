@@ -1,6 +1,4 @@
-//Function to add images to the gallery
-const time = 80; // Time in milliseconds to wait before showing the next image
-const alltime = 30;
+const time = 30; // Time in milliseconds to wait before showing the next image
 const galleryPhotos = document.querySelector('div.photos');
 const genres = ['light', 'water', 'street', 'landscape', 'people'];
 let photoData = {'people':[
@@ -36,25 +34,19 @@ let photoData = {'people':[
     ]
 };
 
+
+// add all photos to a single array
 let photos = [];
 for (let key in photoData) {
     photos = photos.concat(photoData[key]);
 }
 photos.reverse();
-// shuffle(photos)
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Swap elements at positions i and j
-    }
-    return array;
-}
 
 // takes in an index, an array of photos, and all the divs currently in gallery. Appends the next image to the gallery
 function appendNextImage(index, photos, allDivs){
         if(index < photos.length){
-            let img = document.createElement('img');
+            let img = new Image();
             img.src = photos[index];
             addGenres(img,photos[index]);
             allDivs[index].appendChild(img);
@@ -62,23 +54,42 @@ function appendNextImage(index, photos, allDivs){
         }
 }
 
+
 // takes in an index, an array of photos, and all the divs currently in gallery. Shows the images in the gallery
-function showImage(index, photos, allDivs, appendTime){
-        if(index < photos.length){
-            let img = allDivs[index].querySelector('img');
-            if (img.naturalHeight > img.naturalWidth) {
-                img.classList.add('vertical');
-                console.log('yes vertical')
-            } else {
-                img.classList.add('horizontal');
+function showImage(index, photos, allDivs){
+    if(index < photos.length){
+        let img = allDivs[index].querySelector('img');
+        if (img.complete) {
+            console.log(`${img} is already loaded`);
+            revealImage(img);
+            setTimeout(()=>{showImage(index+1,photos,allDivs);},time)
+        }else{
+            console.log(`loading ${img}`);
+            img.onload = () =>{
+                console.log(`${img} is loaded`);
+                revealImage(img);
+                setTimeout(()=>{showImage(index+1,photos,allDivs);},time)
             }
-            img.addEventListener('click', ()=>openModal(photos[index]));
-            img.offsetHeight; // Trigger reflow
-            img.style.opacity = '1';
-            allDivs[index].style.transform = 'translateY(0)';
-            setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime)
         }
+    }
 }
+
+
+// function to adjust the image orientation and add the click event listener
+// and finally reveal the image
+function revealImage(img){
+    if (img.naturalHeight < img.naturalWidth) {
+        img.classList.add('horizontal');
+    } else {
+        img.classList.add('vertical'); 
+    }
+    img.offsetHeight; // Trigger reflow
+    img.style.opacity = '1'; //reveal the image
+    parentDiv = img.parentElement;
+    parentDiv.style.transform = 'translateY(0)'; // move the image up
+    img.addEventListener('click', ()=>openModal(img)); //add click event listener to open closer view
+}
+
 
 function addGenres(img,src){
     for(let key in photoData){
@@ -98,6 +109,7 @@ function createDivs(photos){
 
 }
 
+
 // Function to clear all divs in the gallery
 function clearDivs(){
     let allDivs = document.querySelectorAll('div.photos>div');
@@ -105,6 +117,7 @@ function clearDivs(){
         allDivs[i].remove();
     }
 }
+
 
 // Function to filter images based on genre
 function filterImages(){
@@ -115,7 +128,7 @@ function filterImages(){
             createDivs(currentPhotos);
             let allDivs = document.querySelectorAll('div.photos>div');
             appendNextImage(0,currentPhotos,allDivs);
-            setTimeout(()=>{showImage(0,currentPhotos,allDivs,time)},alltime)
+            setTimeout(()=>{showImage(0,currentPhotos,allDivs)},time)
 
         })
     }
@@ -124,19 +137,17 @@ function filterImages(){
         createDivs(photos);
         let allDivs = document.querySelectorAll('div.photos>div');
         appendNextImage(0,photos,allDivs);
-        setTimeout(()=>{showImage(0,photos,allDivs,alltime);},alltime)
+        setTimeout(()=>{showImage(0,photos,allDivs)},time)
     })
 }
 
 
+// main commands to create divs, append images and show images
 createDivs(photos);
 let allDivs = document.querySelectorAll('div.photos>div');
 appendNextImage(0,photos,allDivs);
-setTimeout(()=>{showImage(0,photos,allDivs,alltime);},500)
+setTimeout(()=>{showImage(0,photos,allDivs);},500)
 filterImages();
-
-
-
 
 
 // Function to change the active class styling of the genre buttons
@@ -159,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Function to open the modal and set the image source
-function openModal(imageSrc) {
-    document.getElementById('modalImage').src = imageSrc;
+function openModal(img) {
+    document.getElementById('modalImage').src = img.src;
     document.getElementById('imageModal').style.display = 'block';
 }
 

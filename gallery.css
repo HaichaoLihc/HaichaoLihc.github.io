@@ -119,7 +119,7 @@ h4{
     overflow: hidden;
     margin: 10px;
     cursor: pointer;
-    transform: translateY(20px); /* Initially, images will be translated down by 20px */
+    transform: translateY(50px); /* Initially, images will be translated down by 20px */
     transition: opacity 0.1s ease, transform 0.5s ease;
     /*transition: transform 0.3s;*/
 
