@@ -269,7 +269,7 @@ h4{
 }
 
 hr{
-    width: 100vw;
+    width: 100%;
     margin-top: 40px;
     margin-bottom: 20px;
     border: 1px solid white;
@@ -338,10 +338,11 @@ hr{
     bottom: 0;
     left: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     text-align: center;
     z-index: -1;
     justify-content: center;
+    overflow: hidden;
 }
 .underneath-div img {
     width: 120%; /* Set width to 100% of the container */
@@ -390,7 +391,7 @@ hr{
 }
 
 #empty-screen{
-    width: 100vw;
+    width: 100%;
     height: 100vh;
 }
 .blurry{
@@ -416,7 +417,7 @@ hr{
 }
 
 .selected-work-box{
-    width: 100vw;
+    width: 100%;
     height: 80vh;
     display: flex;
     justify-content: center;
