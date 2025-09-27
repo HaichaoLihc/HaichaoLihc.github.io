@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Source+Sans+Pro:wght@300;400;500;600&display=swap');
+
 body{
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', 'Source Sans Pro', sans-serif;
     background-color: black;
     overflow-x: hidden;
 }
@@ -9,11 +11,16 @@ h1{
     margin-top: 40px;
     margin-bottom: 20px;
     padding: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: white;
 }
 
 /*Start of NavBar*/
 nav{
     margin-bottom: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 nav a{
     margin-right: 10px;
@@ -21,20 +28,30 @@ nav a{
     text-decoration: none;
     color: darkgray;
     transition: color 0.3s;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 a:hover{
     color: white;
 }
 .navBar{
-    right: -10px;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    box-shadow: 0 10px 15px rgba(0,0, 0, 0.5);
-    background-color: #333;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
     padding: 10px;
     text-align: center;
-    z-index: 2;
-    position: fixed;
+    z-index: 3;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 /*end of navigation bar*/
 hr{

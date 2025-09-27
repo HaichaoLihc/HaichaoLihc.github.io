@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Source+Sans+Pro:wght@300;400;500;600&display=swap');
+
 body{
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', 'Source Sans Pro', sans-serif;
     background-color: #f5f5f5;
     color: #333;
     overflow-x: hidden;
@@ -11,17 +13,23 @@ body{
 
 nav{
     padding-bottom: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 nav a{
     margin-right: 10px;
     margin-left: 10px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 footer p a{
     text-decoration: none;
     color: white;
     transition: color 0.3s;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
 }
 
 a{
@@ -37,15 +45,22 @@ a:hover{
 .navBar{
     position: fixed;
     top: 0;
-    right: -10px;
+    left: 0;
     width: 100%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
-    background-color: #333;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
     padding: 10px;
     text-align: center;
     z-index: 3;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 .hero{
@@ -57,6 +72,9 @@ a:hover{
     margin-top: 20px;
     margin-bottom: 5px;
     padding: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .genreSelector{
@@ -65,7 +83,9 @@ a:hover{
 
 h4{
     margin-top: 5px;
-    font-weight: lighter;
+    font-weight: 300;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
     color: darkgray;
 }
 .genreSelector>div{
@@ -75,7 +95,9 @@ h4{
     margin-left: 5px;
     margin-right: 5px;
     font-size: medium;
-    font-weight: bolder;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     padding: 5px;
     cursor: pointer;
     background-color: transparent;
@@ -144,6 +166,9 @@ h4{
 
 #blurry-screen p:nth-child(1) {
     font-size: 3vw;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    letter-spacing: 1px;
     color: white;
     margin: 15px;
     opacity: 0; /* Start with 0 opacity */
@@ -155,6 +180,9 @@ h4{
 #blurry-screen p:nth-child(2){
     margin: 15px;
     font-size: 2vw;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
     color: white;
     opacity: 0;
     animation: fadeIn 2s ease 2s forwards;
@@ -187,6 +215,9 @@ footer {
     color: white;
     text-align: center;
     padding: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.2px;
 }
 /*functionality of viewing window*/
 .modal {
@@ -219,7 +250,8 @@ footer {
     right: 15px;
     color: white;
     font-size: 20px;
-    font-weight: bold;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
     cursor: pointer;
 }
 
@@ -271,6 +303,8 @@ hr{
     border-radius: 3px;
     cursor: pointer;
     font-size: 16px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
     color: lightgray;
     background-color: transparent;
     transition: color 0.1s ease-in-out;
@@ -368,6 +402,9 @@ hr{
 .selected-work>h1{
     margin: 20px;
     padding: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .selected-work-box{
@@ -381,7 +418,9 @@ hr{
 }
 .selected-work-title{
     flex: 1;
-    font-weight: bold;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     display: flex;
     flex-direction: column;
     justify-content: center;
