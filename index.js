@@ -76,14 +76,17 @@ let currentIndex = 0;
 
 // Function to change the color of the specified word
 function changeColor() {
-    let words = textElement.textContent.split(' ');
-    for (let i = 0; i < words.length; i++) {
-        if (wordsToChange.includes(words[i].toLowerCase())) {
-            words[i] = `<span style="color: ${colors[currentIndex]}">${words[i]}</span>`;
+    let line2Span = document.querySelector('.welcome-line2');
+    if (line2Span) {
+        let words = line2Span.textContent.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            if (wordsToChange.includes(words[i].toLowerCase())) {
+                words[i] = `<span style="color: ${colors[currentIndex]}">${words[i]}</span>`;
+            }
         }
+        line2Span.innerHTML = words.join(' ');
+        currentIndex = (currentIndex + 1) % colors.length;
     }
-    textElement.innerHTML = words.join(' ');
-    currentIndex = (currentIndex + 1) % colors.length;
 }
 
 // Call the changeColor function at the specified interval
@@ -107,4 +110,5 @@ document.addEventListener('DOMContentLoaded', function () {
         window.scrollTo(0, 0);
     }, 150);
 });
+
 

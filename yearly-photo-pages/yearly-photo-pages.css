@@ -2,6 +2,7 @@
 
 body{
     margin: 0;
+    padding: 0;
     font-family: 'Inter', 'Source Sans Pro', sans-serif;
     background-color: black;
     overflow-x: hidden;
@@ -19,7 +20,6 @@ h1{
 
 /*Start of NavBar*/
 nav{
-    margin-bottom: 10px;
     font-family: 'Source Sans Pro', sans-serif;
 }
 nav a{
@@ -39,19 +39,49 @@ a:hover{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
-    padding: 10px;
-    text-align: center;
+    padding: 18px 15px;
     z-index: 3;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 500;
     letter-spacing: 0.3px;
+    box-sizing: border-box;
+}
+
+.navBar nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+.navBar .nav-left {
+    flex: 0 0 auto;
+    text-align: left;
+}
+
+.navBar .nav-center {
+    flex: 1;
+    text-align: center;
+}
+
+.navBar .nav-center h3 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: inherit;
+}
+
+.navBar .nav-right {
+    flex: 0 0 auto;
+    text-align: right;
 }
 /*end of navigation bar*/
 hr{
@@ -109,4 +139,92 @@ hr{
     background-size: cover;
     filter: blur(10px);
     z-index: -1;
+}
+
+/* Mobile Responsive Styles for Yearly Photo Pages */
+@media screen and (max-width: 768px) {
+    .placeholder {
+        padding-top: 100px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+    
+    hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .grid-item {
+        height: auto;
+        min-height: 40vh;
+        padding: 20px 15px;
+        flex-direction: column;
+    }
+    
+    .grid-item img {
+        height: auto;
+        width: 100%;
+        max-width: 300px;
+        margin: 8px 0;
+        object-fit: cover;
+    }
+    
+    .horizontal img {
+        height: auto;
+        width: 100%;
+        max-width: 400px;
+        margin: 8px 0;
+    }
+    
+    .navBar .nav-center h3 {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .placeholder {
+        padding-top: 80px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+    hr {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .grid-item {
+        min-height: 35vh;
+        padding: 15px 10px;
+    }
+    
+    .grid-item img {
+        max-width: 280px;
+        margin: 6px 0;
+    }
+    
+    .horizontal img {
+        max-width: 320px;
+        margin: 6px 0;
+    }
+    
+    .navBar {
+        padding: 15px 10px;
+    }
+    
+    .navBar .nav-center h3 {
+        font-size: 0.9em;
+    }
 }

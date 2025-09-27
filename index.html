@@ -6,20 +6,19 @@
     <title>Haichao Li Photogrpahy</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class = 'indexbg'>
+<body>
     <!-- header -->
-    <script>window.scrollTo(100, 0);</script>
+    <script>window.scrollTo(0, 0);</script>
     <section class="navBar">
-        <h3>Haichao Li Photography</h3>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a> 
-            <a href="projects.html">Projects</a>
+            <a href="gallery.html" class="nav-left">Gallery</a>
+            <a href="index.html" class="nav-center"><h3>Haichao Li Photography</h3></a>
+            <a href="projects.html" class="nav-right">Projects</a>
         </nav>
     </section>
     <div id="blurry-screen">
         <div id = 'frame'>
-            <p id="colorChangingText">Welcome, this is my photo collection</p>
+            <p id="colorChangingText"><span class="welcome-line1">Welcome,</span><br><span class="welcome-line2">this is my photo collection</span></p>
             <p> 2018-2023 </p>
         </div>
     </div>
@@ -73,7 +72,7 @@
                 </div>
                 <div  class = 'selected-work-title'>
                     <h2>2020-2021</h2>
-                    <p><a href="gallery.html">Selected Works</a></p>
+                    <p>Selected Works</p>
                 </div>
             </div>
         <div onclick="goto2019()" class='selected-work-box'>
@@ -89,11 +88,6 @@
                 </div>
             </div>
     </section>
-    <hr>
-    <footer>
-        <p>&copy; 2024 Haichao Li Photography. All rights reserved. | Contact: <a href="mailto:your@email.com">lhc20050616@berkeley.edu</a></p>
-        <!-- Add additional footer content or links as needed -->
-    </footer>
     <div class="underneath-div">
         <img id = 'photo2' src="images/2022/bicycle.jpg" alt="Photograph">
     </div>

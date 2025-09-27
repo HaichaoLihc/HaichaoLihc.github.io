@@ -2,6 +2,7 @@
 
 body{
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     font-family: 'Inter', 'Source Sans Pro', sans-serif;
@@ -45,7 +46,7 @@ a:hover{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.8);
@@ -53,17 +54,47 @@ a:hover{
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #333;
-    padding: 10px;
-    text-align: center;
+    padding: 18px 15px;
     z-index: 3;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 500;
     letter-spacing: 0.3px;
+    box-sizing: border-box;
+}
+
+.navBar nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+.navBar .nav-left {
+    flex: 0 0 auto;
+    text-align: left;
+}
+
+.navBar .nav-center {
+    flex: 1;
+    text-align: center;
+}
+
+.navBar .nav-center h3 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: inherit;
+}
+
+.navBar .nav-right {
+    flex: 0 0 auto;
+    text-align: right;
 }
 
 .genreSelector{
     text-align: center;
-    margin-top: 140px;
+    margin-top: 100px;
 }
 
 h4{
@@ -186,6 +217,92 @@ footer {
     width: auto;
     height: auto;
     border: 3px solid white;
+}
+
+/* Mobile Responsive Styles for Gallery */
+@media screen and (max-width: 768px) {
+    .genreSelector {
+        margin-top: 80px;
+        padding: 0 15px;
+    }
+    
+    .genreSelector h4 {
+        font-size: 14px;
+        margin: 10px 0;
+        padding: 0 10px;
+    }
+    
+    .genreSelector button {
+        margin: 3px;
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .genreSelector > div {
+        margin-bottom: 15px;
+    }
+    
+    .photo-container {
+        width: calc(50% - 20px);
+        height: calc(50vw - 20px);
+        margin: 5px;
+    }
+    
+    .photos {
+        padding: 0 10px;
+        justify-content: space-between;
+    }
+    
+    .modal-content {
+        max-width: 95%;
+        max-height: 70%;
+        border: 2px solid white;
+    }
+    
+    .navBar .nav-center h3 {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .genreSelector {
+        margin-top: 70px;
+        padding: 0 10px;
+    }
+    
+    .genreSelector h4 {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    
+    .genreSelector button {
+        margin: 2px;
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+    
+    .photo-container {
+        width: calc(50% - 10px);
+        height: calc(50vw - 10px);
+        margin: 2px;
+    }
+    
+    .photos {
+        padding: 0 5px;
+    }
+    
+    .navBar {
+        padding: 15px 10px;
+    }
+    
+    .navBar .nav-center h3 {
+        font-size: 0.9em;
+    }
+    
+    .modal-content {
+        max-width: 98%;
+        max-height: 80%;
+    }
 }
 
 
