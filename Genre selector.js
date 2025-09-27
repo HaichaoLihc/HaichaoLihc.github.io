@@ -169,6 +169,25 @@ function closeModal() {
     document.getElementById('imageModal').style.display = 'none';
 }
 
+// Add event listener to close modal when clicking outside the image
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    
+    // Close modal when clicking on the modal background
+    modal.addEventListener('click', function(event) {
+        // Only close if the click was on the modal background, not on the image
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Prevent modal from closing when clicking on the image itself
+    modalImage.addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+});
+
 // Function to scroll to the top of the page when the page is loaded
 document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function() {
