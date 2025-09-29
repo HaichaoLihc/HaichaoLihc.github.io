@@ -2,20 +2,9 @@
 const time = 80; // Time in milliseconds to wait before showing the next image
 const alltime = 30;
 const galleryPhotos = document.querySelector('div.photos');
-const genres = ['light', 'water', 'street', 'landscape', 'people'];
-let photoData = {'people':[
-        "images/2022/fisher.jpg","images/2022/gaze.jpg",
-        "images/2022/oldman.jpg",
-    ],'light':[
-        "images/2018-19/flower.jpg","images/2020-21/couple.jpg", "images/2020-21/helicopter.jpg",
-        "images/2022/bicycles.jpg","images/2022/cloth.jpg","images/2022/grass.jpg",
-        "images/2022/light-on-leaves.jpg","images/2022/swan.jpg",
-        "images/2023/railings.jpg",
-    ], 'water':[
-        "images/2022/light.jpg","images/2022/water.jpg","images/2022/wave.jpg",
-        "images/2023/wave.jpg","images/2023/spray.jpg","images/2023/flower.jpg",
-
-    ], 'street':[
+const genres = ['landscape', 'street', 'casual'];
+let photoData_old = {
+    'street':[
         "images/2018-19/garage.jpg", "images/2020-21/child.jpg","images/2020-21/children.jpg",
         "images/2022/bicycle.jpg","images/2022/bubbles.jpg","images/2022/chair.jpg",
         "images/2022/elevator.jpg","images/2022/hanging-clothes.jpg",
@@ -33,15 +22,70 @@ let photoData = {'people':[
         "images/2020-21/Yosemite,%20California%202.jpg","images/2022/last-light.jpg",
         "images/2023/curve.jpg","images/2023/mountain.jpg","images/2023/boats.jpg",
         "images/2023/moonrise.jpg","images/2023/woods.jpg"
+    ], 'casual':[
+        "images/2018-19/flower.jpg","images/2020-21/couple.jpg", "images/2020-21/helicopter.jpg",
+        "images/2022/bicycles.jpg","images/2022/cloth.jpg","images/2022/grass.jpg",
+        "images/2022/light-on-leaves.jpg","images/2022/swan.jpg","images/2022/fisher.jpg",
+        "images/2022/gaze.jpg","images/2022/oldman.jpg","images/2022/light.jpg",
+        "images/2022/water.jpg","images/2022/wave.jpg","images/2023/railings.jpg",
+        "images/2023/wave.jpg","images/2023/spray.jpg","images/2023/flower.jpg"
     ]
 };
 
+let photoData = {};
 let photos = [];
-for (let key in photoData) {
-    photos = photos.concat(photoData[key]);
+
+// Initialize the gallery with async data loading
+async function initializeGallery() {
+    try {
+        const casual = await imageDataApi.getCloudinaryImagesByTags(['casual']);
+        const street = await imageDataApi.getCloudinaryImagesByTags(['street']);
+        const landscape = await imageDataApi.getCloudinaryImagesByTags(['landscape']);
+        
+        // Check if we got valid data from the API
+        if (!casual || !street || !landscape || 
+            (casual.length === 0 && street.length === 0 && landscape.length === 0)) {
+            throw new Error('No images returned from Cloudinary API');
+        }
+        
+        photoData = {'casual': casual, 'street': street, 'landscape': landscape};
+        
+        photos = [];
+        for (let key in photoData) {
+            photos = photos.concat(photoData[key]);
+        }
+        photos.reverse();
+        // shuffle(photos)
+        
+        // console.log('Successfully loaded images from Cloudinary API');
+        
+        // Initialize the gallery display
+        createDivs(photos);
+        let allDivs = document.querySelectorAll('div.photos>div');
+        appendNextImage(0, photos, allDivs);
+        setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 500);
+        filterImages();
+    } catch (error) {
+        console.error('Error loading gallery images from API:', error);
+        console.log('Falling back to local image data...');
+        
+        // Fallback to old data if API fails
+        photoData = photoData_old;
+        photos = [];
+        for (let key in photoData) {
+            photos = photos.concat(photoData[key]);
+        }
+        photos.reverse();
+        
+        // console.log('Successfully loaded fallback image data');
+        
+        createDivs(photos);
+        let allDivs = document.querySelectorAll('div.photos>div');
+        appendNextImage(0, photos, allDivs);
+        setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 500);
+        filterImages();
+    }
 }
-photos.reverse();
-// shuffle(photos)
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -68,7 +112,7 @@ function showImage(index, photos, allDivs, appendTime){
             let img = allDivs[index].querySelector('img');
             if (img.naturalHeight > img.naturalWidth) {
                 img.classList.add('vertical');
-                console.log('yes vertical')
+                // console.log('yes vertical')
             } else {
                 img.classList.add('horizontal');
             }
@@ -129,11 +173,8 @@ function filterImages(){
 }
 
 
-createDivs(photos);
-let allDivs = document.querySelectorAll('div.photos>div');
-appendNextImage(0,photos,allDivs);
-setTimeout(()=>{showImage(0,photos,allDivs,alltime);},500)
-filterImages();
+// Initialize gallery when page loads
+initializeGallery();
 
 
 
