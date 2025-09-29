@@ -35,56 +35,118 @@ let photoData_old = {
 let photoData = {};
 let photos = [];
 
-// Initialize the gallery with async data loading
+// Initialize the gallery with progressive async data loading
 async function initializeGallery() {
-    try {
-        const casual = await imageDataApi.getCloudinaryImagesByTags(['casual']);
-        const street = await imageDataApi.getCloudinaryImagesByTags(['street']);
-        const landscape = await imageDataApi.getCloudinaryImagesByTags(['landscape']);
-        
-        // Check if we got valid data from the API
-        if (!casual || !street || !landscape || 
-            (casual.length === 0 && street.length === 0 && landscape.length === 0)) {
-            throw new Error('No images returned from Cloudinary API');
+    // Initialize empty data structures
+    photoData = {'casual': [], 'street': [], 'landscape': []};
+    photos = [];
+    let loadedCategories = 0;
+    let totalCategories = 3;
+    let hasDisplayedInitialImages = false;
+    
+    // Show loading indicator
+    showLoadingState();
+    
+    // Function to update gallery as each category loads
+    const updateGalleryWithNewImages = (category, newImages) => {
+        if (newImages && newImages.length > 0) {
+            photoData[category] = newImages;
+            
+            // Rebuild the complete photos array
+            const newPhotos = [];
+            for (let key in photoData) {
+                newPhotos.push(...photoData[key]);
+            }
+            newPhotos.reverse();
+            
+            // If this is the first category to load, initialize the gallery
+            if (!hasDisplayedInitialImages) {
+                photos = [...newPhotos];
+                createDivs(photos);
+                let allDivs = document.querySelectorAll('div.photos>div');
+                appendNextImage(0, photos, allDivs);
+                setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 100);
+                hasDisplayedInitialImages = true;
+                hideLoadingState();
+            } else {
+                // Add new images progressively
+                const previousLength = photos.length;
+                photos = [...newPhotos];
+                
+                // Add new divs for the new images
+                const newImageCount = photos.length - previousLength;
+                if (newImageCount > 0) {
+                    addNewDivs(newImageCount);
+                    // Get fresh DOM query after adding new divs
+                    let allDivs = document.querySelectorAll('div.photos>div');
+                    // Append and show only the new images
+                    appendNextImage(previousLength, photos, allDivs);
+                    setTimeout(() => { 
+                        // Get fresh DOM query again before showing images
+                        let freshDivs = document.querySelectorAll('div.photos>div');
+                        showImage(previousLength, photos, freshDivs, alltime); 
+                    }, 200);
+                }
+            }
         }
         
-        photoData = {'casual': casual, 'street': street, 'landscape': landscape};
+        loadedCategories++;
         
-        photos = [];
-        for (let key in photoData) {
-            photos = photos.concat(photoData[key]);
+        // Once all categories are loaded, set up filters
+        if (loadedCategories === totalCategories) {
+            filterImages();
+            console.log('All image categories loaded successfully');
         }
-        photos.reverse();
-        // shuffle(photos)
-        
-        // console.log('Successfully loaded images from Cloudinary API');
-        
-        // Initialize the gallery display
-        createDivs(photos);
-        let allDivs = document.querySelectorAll('div.photos>div');
-        appendNextImage(0, photos, allDivs);
-        setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 500);
-        filterImages();
-    } catch (error) {
-        console.error('Error loading gallery images from API:', error);
-        console.log('Falling back to local image data...');
-        
-        // Fallback to old data if API fails
-        photoData = photoData_old;
-        photos = [];
-        for (let key in photoData) {
-            photos = photos.concat(photoData[key]);
+    };
+    
+    // Start all three API requests in parallel
+    const categoryPromises = [
+        { category: 'casual', promise: imageDataApi.getCloudinaryImagesByTags(['casual']) },
+        { category: 'street', promise: imageDataApi.getCloudinaryImagesByTags(['street']) },
+        { category: 'landscape', promise: imageDataApi.getCloudinaryImagesByTags(['landscape']) }
+    ];
+    
+    // Handle each promise as it resolves
+    categoryPromises.forEach(({ category, promise }) => {
+        promise
+            .then(images => {
+                console.log(`Loaded ${images.length} ${category} images`);
+                updateGalleryWithNewImages(category, images);
+            })
+            .catch(error => {
+                console.error(`Failed to load ${category} images:`, error);
+                // Use fallback data for this category
+                if (photoData_old[category]) {
+                    console.log(`Using fallback data for ${category}`);
+                    updateGalleryWithNewImages(category, photoData_old[category]);
+                } else {
+                    loadedCategories++;
+                    if (loadedCategories === totalCategories) {
+                        filterImages();
+                    }
+                }
+            });
+    });
+    
+    // Fallback timeout - if no images load within 10 seconds, use local data
+    setTimeout(() => {
+        if (!hasDisplayedInitialImages) {
+            console.log('API timeout - falling back to local image data');
+            photoData = photoData_old;
+            photos = [];
+            for (let key in photoData) {
+                photos = photos.concat(photoData[key]);
+            }
+            photos.reverse();
+            
+            createDivs(photos);
+            let allDivs = document.querySelectorAll('div.photos>div');
+            appendNextImage(0, photos, allDivs);
+            setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 500);
+            filterImages();
+            hideLoadingState();
         }
-        photos.reverse();
-        
-        // console.log('Successfully loaded fallback image data');
-        
-        createDivs(photos);
-        let allDivs = document.querySelectorAll('div.photos>div');
-        appendNextImage(0, photos, allDivs);
-        setTimeout(() => { showImage(0, photos, allDivs, alltime); }, 500);
-        filterImages();
-    }
+    }, 10000);
 }
 
 function shuffle(array) {
@@ -108,20 +170,55 @@ function appendNextImage(index, photos, allDivs){
 
 // takes in an index, an array of photos, and all the divs currently in gallery. Shows the images in the gallery
 function showImage(index, photos, allDivs, appendTime){
-        if(index < photos.length){
-            let img = allDivs[index].querySelector('img');
-            if (img.naturalHeight > img.naturalWidth) {
-                img.classList.add('vertical');
-                // console.log('yes vertical')
-            } else {
-                img.classList.add('horizontal');
+        if(index < photos.length && index < allDivs.length){
+            // Check if the div exists
+            if (!allDivs[index]) {
+                console.warn(`Div at index ${index} does not exist`);
+                setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime);
+                return;
             }
-            img.addEventListener('click', ()=>openModal(photos[index]));
-            img.offsetHeight; // Trigger reflow
-            img.style.opacity = '1';
-            allDivs[index].style.transform = 'translateY(0)';
-            setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime)
+            
+            let img = allDivs[index].querySelector('img');
+            
+            // Check if the image exists
+            if (!img) {
+                console.warn(`Image at index ${index} does not exist`);
+                setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime);
+                return;
+            }
+            
+            // Wait for image to load before checking dimensions
+            if (img.complete && img.naturalHeight !== 0) {
+                applyImageStyling(img, photos[index], allDivs[index]);
+                setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime);
+            } else {
+                // Image not loaded yet, wait for it
+                img.onload = () => {
+                    applyImageStyling(img, photos[index], allDivs[index]);
+                    setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime);
+                };
+                // Fallback in case onload doesn't fire
+                setTimeout(() => {
+                    if (img.complete || img.naturalHeight > 0) {
+                        applyImageStyling(img, photos[index], allDivs[index]);
+                    }
+                    setTimeout(()=>{showImage(index+1,photos,allDivs,appendTime);},appendTime);
+                }, 100);
+            }
         }
+}
+
+// Helper function to apply styling to loaded images
+function applyImageStyling(img, photoSrc, divElement) {
+    if (img.naturalHeight > img.naturalWidth) {
+        img.classList.add('vertical');
+    } else {
+        img.classList.add('horizontal');
+    }
+    img.addEventListener('click', ()=>openModal(photoSrc));
+    img.offsetHeight; // Trigger reflow
+    img.style.opacity = '1';
+    divElement.style.transform = 'translateY(0)';
 }
 
 function addGenres(img,src){
@@ -139,7 +236,35 @@ function createDivs(photos){
         newDiv.classList.add('photo-container');
         galleryPhotos.appendChild(newDiv);
     }
+}
 
+// Function to add new divs for additional photos
+function addNewDivs(count){
+    for(let i=0;i<count;i++){
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('photo-container');
+        galleryPhotos.appendChild(newDiv);
+    }
+}
+
+// Function to show loading state
+function showLoadingState(){
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = 'loading-indicator';
+    loadingDiv.innerHTML = `
+        <div style="text-align: center; padding: 40px; color: #666;">
+            <div style="font-size: 18px; margin-bottom: 10px;">Loading gallery...</div>
+        </div>
+    `;
+    galleryPhotos.appendChild(loadingDiv);
+}
+
+// Function to hide loading state
+function hideLoadingState(){
+    const loadingDiv = document.getElementById('loading-indicator');
+    if (loadingDiv) {
+        loadingDiv.remove();
+    }
 }
 
 // Function to clear all divs in the gallery
