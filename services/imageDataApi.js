@@ -68,6 +68,67 @@ class ImageDataApiService {
     }
 
     /**
+     * Fetch Cloudinary images with metadata for multiple tags
+     * @param {string[]} tags - Array of tags (or folder/tag names)
+     * @param {object} options - Optional transformation options
+     * @returns {Promise<object[]>} - Combined array of image objects with metadata
+     */
+    async getCloudinaryImagesWithMetadata(tags, options = {}) {
+        const cloudName = this.defaultCloudName;
+        const transform = options.transform || ""; // e.g. "w_400,q_auto,f_auto"
+        const timeout = options.timeout || 10000; // 10 second timeout
+
+        // Helper function to add timeout to fetch
+        const fetchWithTimeout = (url, timeoutMs) => {
+            return Promise.race([
+                fetch(url),
+                new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('Request timeout')), timeoutMs)
+                )
+            ]);
+        };
+
+        // Create an array of fetch promises for each tag
+        const fetches = tags.map(async (tag) => {
+            try {
+                const res = await fetchWithTimeout(
+                    `https://res.cloudinary.com/${cloudName}/image/list/${tag}.json`,
+                    timeout
+                );
+                
+                if (!res.ok) {
+                    console.warn(`Tag ${tag} returned status ${res.status}`);
+                    return [];
+                }
+                
+                const data = await res.json();
+                
+                if (!data.resources || !Array.isArray(data.resources)) {
+                    console.warn(`Tag ${tag} returned invalid data structure`);
+                    return [];
+                }
+                
+                return data.resources.map(photo => ({
+                    url: transform
+                        ? `https://res.cloudinary.com/${cloudName}/image/upload/${transform}/${photo.public_id}.${photo.format}`
+                        : `https://res.cloudinary.com/${cloudName}/image/upload/${photo.public_id}.${photo.format}`,
+                    created_at: photo.created_at,
+                    public_id: photo.public_id,
+                    format: photo.format,
+                    tag: tag
+                }));
+            } catch (error) {
+                console.error(`Failed to fetch images for tag ${tag}:`, error);
+                return [];
+            }
+        });
+
+        // Wait for all fetches and flatten the results
+        const results = await Promise.all(fetches);
+        return results.flat();
+    }
+
+    /**
      * Get optimized image transformations for different use cases
      * @param {string} useCase - 'thumbnail', 'gallery', 'full', or custom
      * @returns {string} - Transformation string

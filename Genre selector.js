@@ -34,6 +34,7 @@ let photoData_old = {
 
 let photoData = {};
 let photos = [];
+let photoMetadata = {}; // Store photo metadata including dates
 
 // Initialize the gallery with parallel async data loading
 async function initializeGallery() {
@@ -41,26 +42,39 @@ async function initializeGallery() {
         // Show loading indicator
         showLoadingState();
         
-        // Start all three API requests in parallel
-        const [casual, street, landscape] = await Promise.all([
-            imageDataApi.getCloudinaryImagesByTags(['casual']).catch(() => photoData_old.casual || []),
-            imageDataApi.getCloudinaryImagesByTags(['street']).catch(() => photoData_old.street || []),
-            imageDataApi.getCloudinaryImagesByTags(['landscape']).catch(() => photoData_old.landscape || [])
+        // Start all three API requests in parallel to get metadata
+        const [casualMeta, streetMeta, landscapeMeta] = await Promise.all([
+            imageDataApi.getCloudinaryImagesWithMetadata(['casual']).catch(() => []),
+            imageDataApi.getCloudinaryImagesWithMetadata(['street']).catch(() => []),
+            imageDataApi.getCloudinaryImagesWithMetadata(['landscape']).catch(() => [])
         ]);
         
         // Check if we got valid data from the API
-        if (!casual || !street || !landscape || 
-            (casual.length === 0 && street.length === 0 && landscape.length === 0)) {
+        if (casualMeta.length === 0 && streetMeta.length === 0 && landscapeMeta.length === 0) {
             throw new Error('No images returned from Cloudinary API');
         }
         
+        // Extract URLs and store metadata
+        const casual = casualMeta.map(item => item.url);
+        const street = streetMeta.map(item => item.url);
+        const landscape = landscapeMeta.map(item => item.url);
+        
+        // Store metadata for sorting
+        photoMetadata = {};
+        [...casualMeta, ...streetMeta, ...landscapeMeta].forEach(item => {
+            photoMetadata[item.url] = item;
+        });
+        
         photoData = {'casual': casual, 'street': street, 'landscape': landscape};
         
+        // Combine all photos and sort by date (newest first)
         photos = [];
         for (let key in photoData) {
             photos = photos.concat(photoData[key]);
         }
-        photos.reverse();
+        
+        // Sort photos by date in descending order (newest first)
+        photos = sortPhotosByDate(photos, 'desc');
         
         console.log('Successfully loaded images from Cloudinary API');
         
@@ -82,7 +96,9 @@ async function initializeGallery() {
         for (let key in photoData) {
             photos = photos.concat(photoData[key]);
         }
-        photos.reverse();
+        
+        // For fallback data, sort by filename which contains year info
+        photos = sortPhotosByFilename(photos, 'desc');
         
         console.log('Successfully loaded fallback image data');
         
@@ -101,6 +117,51 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]]; // Swap elements at positions i and j
     }
     return array;
+}
+
+// Function to sort photos by date using metadata
+function sortPhotosByDate(photoArray, order = 'desc') {
+    return photoArray.sort((a, b) => {
+        const dateA = photoMetadata[a] ? new Date(photoMetadata[a].created_at) : new Date(0);
+        const dateB = photoMetadata[b] ? new Date(photoMetadata[b].created_at) : new Date(0);
+        
+        if (order === 'desc') {
+            return dateB - dateA; // Newest first
+        } else {
+            return dateA - dateB; // Oldest first
+        }
+    });
+}
+
+// Function to sort photos by filename (fallback for local data)
+function sortPhotosByFilename(photoArray, order = 'desc') {
+    return photoArray.sort((a, b) => {
+        // Extract year from filename (e.g., "images/2023/photo.jpg" -> "2023")
+        const yearA = extractYearFromPath(a);
+        const yearB = extractYearFromPath(b);
+        
+        if (order === 'desc') {
+            return yearB - yearA; // Newest first
+        } else {
+            return yearA - yearB; // Oldest first
+        }
+    });
+}
+
+// Helper function to extract year from image path
+function extractYearFromPath(imagePath) {
+    const yearMatch = imagePath.match(/images\/(\d{4})/);
+    if (yearMatch) {
+        return parseInt(yearMatch[1]);
+    }
+    
+    // Handle ranges like "2018-19" or "2020-21"
+    const rangeMatch = imagePath.match(/images\/(\d{4})-(\d{2})/);
+    if (rangeMatch) {
+        return parseInt(rangeMatch[1]); // Use the starting year
+    }
+    
+    return 0; // Default for unknown dates
 }
 
 // takes in an index, an array of photos, and all the divs currently in gallery. Appends the next image to the gallery
@@ -183,6 +244,14 @@ function filterImages(){
     for(let i=0;i<genres.length;i++){
         document.getElementById(genres[i]).addEventListener('click', ()=>{
             let currentPhotos = [...photoData[genres[i]]];
+            
+            // Sort filtered photos by date (newest first)
+            if (Object.keys(photoMetadata).length > 0) {
+                currentPhotos = sortPhotosByDate(currentPhotos, 'desc');
+            } else {
+                currentPhotos = sortPhotosByFilename(currentPhotos, 'desc');
+            }
+            
             clearDivs();
             createDivs(currentPhotos);
             let allDivs = document.querySelectorAll('div.photos>div');
